@@ -39,6 +39,7 @@ ADD zabbix.conf.php /etc/zabbix/web/zabbix.conf.php
 ADD httpd.conf /etc/httpd/conf/httpd.conf
 
 RUN chown -R apache: /etc/zabbix/web/ && \
+	ln -sf /usr/share/fonts/vlgothic/VL-PGothic-Regular.ttf /var/www/html/zabbix/fonts/graphfont.ttf && \
 	localedef -f UTF-8 -i ja_JP ja_JP
 
 EXPOSE 80
