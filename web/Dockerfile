@@ -1,17 +1,19 @@
-FROM centos:7 AS build-env
+FROM amazonlinux:2017.03 AS build-env
 LABEL maintainer=youyo
 
-RUN	yum install -y \
-		http://repo.zabbix.com/zabbix/3.4/rhel/7/x86_64/zabbix-release-3.4-2.el7.noarch.rpm && \
+RUN	yum install -y http://repo.zabbix.com/zabbix/3.4/rhel/6/x86_64/zabbix-release-3.4-1.el6.noarch.rpm && \
 	yum install -y \
 		zabbix-web-mysql \
 		zabbix-web-japanese
 
-FROM centos:7
+FROM amazonlinux:2017.03
 LABEL maintainer=youyo
 
-RUN	yum install -y https://rpms.remirepo.net/enterprise/remi-release-7.rpm && \
-	yum-config-manager --enable remi-php71 && \
+RUN	yum install -y https://rpms.remirepo.net/enterprise/remi-release-6.rpm && \
+	yum-config-manager --enable remi remi-php71 epel && \
+	yum-config-manager --save --setopt='remi.priority=1' && \
+	yum-config-manager --save --setopt='remi-php71.priority=1' && \
+	yum-config-manager --save --setopt='epel.priority=1' && \
 	yum install -y \
 		httpd \
 		fontpackages-filesystem \
