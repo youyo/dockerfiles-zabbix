@@ -1,8 +1,14 @@
 FROM amazonlinux:2017.03
 LABEL maintainer=youyo
 
+ENV LE_VERSION 0.1.1
+
 RUN	yum install -y http://repo.zabbix.com/zabbix/3.4/rhel/6/x86_64/zabbix-release-3.4-1.el6.noarch.rpm && \
-	yum install -y zabbix-agent zabbix-get zabbix-sender
+	yum install -y zabbix-agent zabbix-get zabbix-sender && \
+	mkdir -p /var/lib/zabbix/bin && \
+	chown -R zabbix: /var/lib/zabbix/ && \
+	curl -sL https://github.com/youyo/zabbix-userparameter-script-linux-extended/releases/download/${LE_VERSION}/linux-extended -o /var/lib/zabbix/bin/linux-extended && \
+	chmod 755 /var/lib/zabbix/bin/linux-extended
 
 ADD zabbix_agentd.conf /etc/zabbix/
 EXPOSE 10050
