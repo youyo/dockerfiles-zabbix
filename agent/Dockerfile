@@ -2,7 +2,7 @@ FROM amazonlinux:2017.09
 LABEL maintainer=youyo
 
 ENV LE_VERSION 0.1.1
-ENV AI_VERSION 0.1.0
+ENV AI_VERSION 0.1.2
 
 RUN	yum install -y http://repo.zabbix.com/zabbix/3.4/rhel/6/x86_64/zabbix-release-3.4-1.el6.noarch.rpm && \
 	yum install -y zabbix-agent zabbix-get zabbix-sender && \
